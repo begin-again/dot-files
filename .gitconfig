@@ -1,0 +1,48 @@
+[core]
+	autocrlf = true
+	editor = vim
+	safecrlf = false
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	email = hogartht16@ecu.edu
+	name = Todd Hogarth
+[merge]
+	tool = meld
+[mergetool "meld"]
+	path = C:\\Users\\hogartht16\\bin\\Meld\\Meld.exe
+[alias]
+	last = log -1 --stat
+	ls = log --pretty=format:\"%C(yellow)%h%Cred%d %Cgreen%cd %Creset%s%Cgreen [%an]\" --graph --date=relative
+	dlc = diff --cached HEAD^
+	gb = branch -v --sort=committerdate
+    gco = checkout
+    grep-branch-local = "!f(){ git branch | cut -c3- | grep -v -e q'\\->' | xargs git grep $@; };f"
+	vd = difftool
+	gv = difftool -g
+    fetch-pr = fetch origin -q '+refs/pull/*/head:refs/remotes/origin/pull/*'
+[gui]
+	recentrepo = C:/Users/hogartht16/Projects/team
+[fetch]
+	prune = true
+[status]
+	showUntrackedFiles = all
+	displayCommentPrefix = true
+	showStash = true
+[push]
+	default = current
+[grep]
+	lineNumber = true
+[credential]
+	helper = wincred
+[diff]
+	tool = vimdiff
+[digg]
+	guitool = meld
+[difftool]
+	prompt = 0
+[winUpdater]
+	recentlySeenVersion = 2.24.1.windows.2

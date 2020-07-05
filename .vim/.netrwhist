@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/c/Users/hogartht16/projects/connect_client/builder'
+let g:netrw_dirhist_6='/c/Users/hogartht16/projects/connect_client'
+let g:netrw_dirhist_5='/c/Users/hogartht16/projects/dev-config/.vscode'
+let g:netrw_dirhist_4='/c/Users/hogartht16/projects/connect_client/hooks'
+let g:netrw_dirhist_3='/c/Users/hogartht16/ddd'
+let g:netrw_dirhist_2='/c/windows/system32/drivers'
+let g:netrw_dirhist_1='/c/Users/hogartht16/projects/deploy-tools/src/builder'

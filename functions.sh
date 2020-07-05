@@ -1,38 +1,43 @@
-gref() {
+echo "  loading functions.sh"
+
+projects() {
     if [ -n "$1" ]; then
-        if [ -d "$HOME/projects/$1" ]; then
-            git -C "$HOME/projects/$1" log --walk-reflogs \
-                --format="%gd %C(yellow)%h %Cgreen%cd%Cred%d %C(yellow)%gs %Creset%s" \
-                --date=format:"%d %b %H:%M"
+        if [ -d "$DEVROOT/$1" ]; then
+            cd "$DEVROOT/$1"
         else
-            echo "Cannot find $HOME/projects/$1"
+            cd "$DEVROOT"
         fi
     else
-        git log --walk-reflogs \
-            --format="%gd %C(yellow)%h %Cgreen%cd%Cred%d %C(yellow)%gs %Creset%s" \
-            --date=format:"%d %b %H:%M"
+        cd "$DEVROOT"
     fi
 }
-export gref
 
-changed() {
-    if [ -z "$1" ]; then 
-        branch="master"
-    else 
-        branch="$1"
-    fi 
-    git diff --name-only HEAD $(git merge-base HEAD "$branch")
+extratemplates(){
+    if [ "$1" ]; then
+        folder="$1"
+    else
+        folder="app"
+    fi
+    if [ -d "$folder" ]; then
+        templates=$(find "$folder" -type f -name "*.html")
+        found=$(grep -riw --include='*.js' -f <(echo "$templates") app | cut -d":" -f3 | tr -d '"' | tr -d "\'" | sed 's/\.\///' | sort)
+        diff -wy --suppress-common-lines <(echo "$templates") <(echo "$found")
+    else
+        echo "Unable to find folder '$folder'"
+    fi
 }
-export changed
 
-checkmerge() {
-    if [ -z "$1" ]; then 
-        branch="master"
-    else 
-        branch="$1"
-    fi 
-    git merge --no-commit --no-ff $branch 
-    git merge --abort 
+# Toggles the extra JS styles= rules
+xlint(){
+
+    if [ -f "$DEVROOT/.eslintrc.yaml" ]; then
+        mv "$DEVROOT/.eslintrc.yaml" "$DEVROOT/.eslintrc.yaml.hide"
+        echo "Disabled"
+    elif [ -f "$DEVROOT/.eslintrc.yaml.hide" ]; then
+        mv "$DEVROOT/.eslintrc.yaml.hide" "$DEVROOT/.eslintrc.yaml"
+        echo "Enabled"
+    else
+        echo "File not found"
+    fi
 }
-export checkmerge
-
+export xlint
